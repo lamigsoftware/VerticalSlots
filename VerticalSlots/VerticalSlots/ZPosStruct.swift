@@ -18,6 +18,7 @@ struct ZPosStruct {
     static let element:CGFloat = 4
     static let elementEffect:CGFloat = 5
     static let reelSurrounds:CGFloat = 6
+    static let adBanner:CGFloat = 7
     
     //Dashboard
     static let dashBoard:CGFloat = 101//there is an upper and lower dashboard
