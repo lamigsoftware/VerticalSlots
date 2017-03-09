@@ -11,11 +11,57 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    static let sideMargin:CGFloat = 50
+    static let bufferX:CGFloat = 40
+    static let minX:CGFloat = -375
+    
+    static let reel0X:CGFloat = minX + sideMargin + 0*162.5 + 1*bufferX
+    static let reel1X:CGFloat = minX + sideMargin + 1*162.5 + 1*bufferX
+    static let reel2X:CGFloat = minX + sideMargin + 2*162.5 + 1*bufferX
+    static let reel3X:CGFloat = minX + sideMargin + 3*162.5 + 1*bufferX
+    
+    static let topMargin:CGFloat = 200
+    static let maxY:CGFloat = 667
+    
+    static var reel0Y:CGFloat = maxY - topMargin
+    
     override func didMove(to view: SKView) {
+        
+        let symbol0 = SKSpriteNode(color: .red, size: CGSize(width: 80, height: 80))
+        symbol0.anchorPoint = CGPoint(x: 0, y: 1)
+        symbol0.position = CGPoint(x: GameScene.reel0X, y: GameScene.reel0Y)
+        symbol0.zPosition = ZPosStruct.element
+        addChild(symbol0)
+        
+        let symbol1 = SKSpriteNode(color: .green, size: CGSize(width: 80, height: 80))
+        symbol1.anchorPoint = CGPoint(x: 0, y: 1)
+        symbol1.position = CGPoint(x: GameScene.reel1X, y: GameScene.reel0Y)
+        symbol1.zPosition = ZPosStruct.element
+        addChild(symbol1)
+        
+        let symbol2 = SKSpriteNode(color: .blue, size: CGSize(width: 80, height: 80))
+        symbol2.anchorPoint = CGPoint(x: 0, y: 1)
+        symbol2.position = CGPoint(x: GameScene.reel2X, y: GameScene.reel0Y)
+        symbol2.zPosition = ZPosStruct.element
+        addChild(symbol2)
+        
+        let symbol3 = SKSpriteNode(color: .purple, size: CGSize(width: 80, height: 80))
+        symbol3.anchorPoint = CGPoint(x: 0, y: 1)
+        symbol3.position = CGPoint(x: GameScene.reel3X, y: GameScene.reel0Y)
+        symbol3.zPosition = ZPosStruct.element
+        addChild(symbol3)
+        
+        
+        
         
         let reelSurrounds = SKSpriteNode(imageNamed: "reelSurrounds")
         reelSurrounds.zPosition = ZPosStruct.reelSurrounds
         addChild(reelSurrounds)
+        
+        let reelsBackground = SKSpriteNode(imageNamed: "reelsBackground")
+        reelsBackground.position = CGPoint(x: 0, y: 57.5)
+        reelsBackground.zPosition = ZPosStruct.reelsBackground
+        addChild(reelsBackground)
         
         let menuBtn = SKSpriteNode(imageNamed: "menuButton")
         menuBtn.anchorPoint = CGPoint(x: 0, y: 1)
