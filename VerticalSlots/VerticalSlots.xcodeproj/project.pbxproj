@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B05C218E1E71F67F006E0915 /* ReelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C218D1E71F67F006E0915 /* ReelContainer.swift */; };
 		B09C02A11E710E1000B85481 /* ElementID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09C02A01E710E1000B85481 /* ElementID.swift */; };
 		B09C02A31E710E2600B85481 /* ElementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09C02A21E710E2600B85481 /* ElementType.swift */; };
 		B09C02A51E710E3900B85481 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09C02A41E710E3900B85481 /* Element.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B05C218D1E71F67F006E0915 /* ReelContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReelContainer.swift; sourceTree = "<group>"; };
 		B09C02A01E710E1000B85481 /* ElementID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementID.swift; sourceTree = "<group>"; };
 		B09C02A21E710E2600B85481 /* ElementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementType.swift; sourceTree = "<group>"; };
 		B09C02A41E710E3900B85481 /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
@@ -67,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B05C218C1E71F664006E0915 /* Pillars */ = {
+			isa = PBXGroup;
+			children = (
+				B05C218D1E71F67F006E0915 /* ReelContainer.swift */,
+			);
+			name = Pillars;
+			sourceTree = "<group>";
+		};
 		B0E3AA821E70DFC6009FA74C = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +96,7 @@
 		B0E3AA8D1E70DFC6009FA74C /* VerticalSlots */ = {
 			isa = PBXGroup;
 			children = (
+				B05C218C1E71F664006E0915 /* Pillars */,
 				B0E3AAA91E70E68A009FA74C /* AppDelegate */,
 				B0E3AAAD1E70E6AC009FA74C /* Extensions */,
 				B0E3AAAC1E70E6A1009FA74C /* Structs */,
@@ -263,6 +274,7 @@
 				B09C02A71E710E4C00B85481 /* Reel.swift in Sources */,
 				B09C02A11E710E1000B85481 /* ElementID.swift in Sources */,
 				B0E3AA951E70DFC6009FA74C /* GameScene.swift in Sources */,
+				B05C218E1E71F67F006E0915 /* ReelContainer.swift in Sources */,
 				B0E3AAB81E710A1B009FA74C /* SceneType.swift in Sources */,
 				B09C02AB1E710E6F00B85481 /* Shown.swift in Sources */,
 				B09C02A31E710E2600B85481 /* ElementType.swift in Sources */,

@@ -15,43 +15,90 @@ class GameScene: SKScene {
     static let bufferX:CGFloat = 40
     static let minX:CGFloat = -375
     
-    static let reel0X:CGFloat = minX + sideMargin + 0*162.5 + 1*bufferX
-    static let reel1X:CGFloat = minX + sideMargin + 1*162.5 + 1*bufferX
-    static let reel2X:CGFloat = minX + sideMargin + 2*162.5 + 1*bufferX
-    static let reel3X:CGFloat = minX + sideMargin + 3*162.5 + 1*bufferX
+    static let reel0X:CGFloat = minX + sideMargin + 0*162.5// + 1*bufferX
+    static let reel1X:CGFloat = minX + sideMargin + 1*162.5// + 1*bufferX
+    static let reel2X:CGFloat = minX + sideMargin + 2*162.5// + 1*bufferX
+    static let reel3X:CGFloat = minX + sideMargin + 3*162.5// + 1*bufferX
     
     static let topMargin:CGFloat = 200
     static let maxY:CGFloat = 667
     
-    static var reel0Y:CGFloat = maxY - topMargin
+    static let elementHeight:CGFloat = 80
+    static var reel0Y:CGFloat = maxY - topMargin - 0*elementHeight
+    static var reel1Y:CGFloat = maxY - topMargin - 1*elementHeight
+    static var reel2Y:CGFloat = maxY - topMargin - 2*elementHeight
+    static var reel3Y:CGFloat = maxY - topMargin - 3*elementHeight
+    static var reel4Y:CGFloat = maxY - topMargin - 4*elementHeight
+    static var reel5Y:CGFloat = maxY - topMargin - 5*elementHeight
+    static var reel6Y:CGFloat = maxY - topMargin - 6*elementHeight
+    static var reel7Y:CGFloat = maxY - topMargin - 7*elementHeight
+    static var reel8Y:CGFloat = maxY - topMargin - 8*elementHeight
+    static var reel9Y:CGFloat = maxY - topMargin - 9*elementHeight
+    
+    static var reelContainer0 = ReelContainer(spriteNodes: [])
+    static var reelContainer1 = ReelContainer(spriteNodes: [])
+    static var reelContainer2 = ReelContainer(spriteNodes: [])
+    static var reelContainer3 = ReelContainer(spriteNodes: [])
+    static var reelContainers:[ReelContainer] = []
+    
+    static var reelContainersStartingYPos:CGFloat = 840*2 + 84*176
+    static var reelContainersEndingYPos:CGFloat = 84*7 //NOTE: Don't use the first row of the container. Start at the second row for win evaluation. 
+    
+    func sprite(reelX:Int, reelY:Int) -> SKSpriteNode {
+        let rand = arc4random_uniform(10)
+        
+        switch rand {
+        case 0: return SKSpriteNode(color: UIColor.red, size: CGSize(width: 160, height: 80))
+        case 1: return SKSpriteNode(color: UIColor.green, size: CGSize(width: 160, height: 80))
+        case 2: return SKSpriteNode(color: UIColor.blue, size: CGSize(width: 160, height: 80))
+        case 3: return SKSpriteNode(color: UIColor.yellow, size: CGSize(width: 160, height: 80))
+        case 4: return SKSpriteNode(color: UIColor.purple, size: CGSize(width: 160, height: 80))
+        case 5: return SKSpriteNode(color: UIColor.brown, size: CGSize(width: 160, height: 80))
+        case 6: return SKSpriteNode(color: UIColor.cyan, size: CGSize(width: 160, height: 80))
+        case 7: return SKSpriteNode(color: UIColor.white, size: CGSize(width: 160, height: 80))
+        case 8: return SKSpriteNode(color: UIColor.black, size: CGSize(width: 160, height: 80))
+        case 9: return SKSpriteNode(color: UIColor.darkGray, size: CGSize(width: 160, height: 80))
+        default: return SKSpriteNode(color: .clear, size: CGSize(width: 1, height: 1))
+        }
+    }
+    
+    func generateReelSprites() -> [SKSpriteNode] {
+        var sprites:[SKSpriteNode] = []
+        
+        for _ in 0..<200 {
+            let element = sprite(reelX: 0, reelY: 0)
+            sprites.append(element)
+        }
+        
+        return sprites
+    }
     
     override func didMove(to view: SKView) {
         
-        let symbol0 = SKSpriteNode(color: .red, size: CGSize(width: 80, height: 80))
-        symbol0.anchorPoint = CGPoint(x: 0, y: 1)
-        symbol0.position = CGPoint(x: GameScene.reel0X, y: GameScene.reel0Y)
-        symbol0.zPosition = ZPosStruct.element
-        addChild(symbol0)
+        GameScene.reelContainer0 = ReelContainer(spriteNodes: generateReelSprites())
+        GameScene.reelContainer1 = ReelContainer(spriteNodes: generateReelSprites())
+        GameScene.reelContainer2 = ReelContainer(spriteNodes: generateReelSprites())
+        GameScene.reelContainer3 = ReelContainer(spriteNodes: generateReelSprites())
         
-        let symbol1 = SKSpriteNode(color: .green, size: CGSize(width: 80, height: 80))
-        symbol1.anchorPoint = CGPoint(x: 0, y: 1)
-        symbol1.position = CGPoint(x: GameScene.reel1X, y: GameScene.reel0Y)
-        symbol1.zPosition = ZPosStruct.element
-        addChild(symbol1)
+        GameScene.reelContainer0.anchorPoint = CGPoint(x: 0.5, y: 1)
+        GameScene.reelContainer1.anchorPoint = CGPoint(x: 0.5, y: 1)
+        GameScene.reelContainer2.anchorPoint = CGPoint(x: 0.5, y: 1)
+        GameScene.reelContainer3.anchorPoint = CGPoint(x: 0.5, y: 1)
         
-        let symbol2 = SKSpriteNode(color: .blue, size: CGSize(width: 80, height: 80))
-        symbol2.anchorPoint = CGPoint(x: 0, y: 1)
-        symbol2.position = CGPoint(x: GameScene.reel2X, y: GameScene.reel0Y)
-        symbol2.zPosition = ZPosStruct.element
-        addChild(symbol2)
+        GameScene.reelContainer0.position = CGPoint(x: GameScene.reel0X, y: GameScene.reelContainersStartingYPos)
+        GameScene.reelContainer1.position = CGPoint(x: GameScene.reel1X, y: GameScene.reelContainersStartingYPos)
+        GameScene.reelContainer2.position = CGPoint(x: GameScene.reel2X, y: GameScene.reelContainersStartingYPos)
+        GameScene.reelContainer3.position = CGPoint(x: GameScene.reel3X, y: GameScene.reelContainersStartingYPos)
         
-        let symbol3 = SKSpriteNode(color: .purple, size: CGSize(width: 80, height: 80))
-        symbol3.anchorPoint = CGPoint(x: 0, y: 1)
-        symbol3.position = CGPoint(x: GameScene.reel3X, y: GameScene.reel0Y)
-        symbol3.zPosition = ZPosStruct.element
-        addChild(symbol3)
+        GameScene.reelContainer0.zPosition = ZPosStruct.reelContainer
+        GameScene.reelContainer1.zPosition = ZPosStruct.reelContainer
+        GameScene.reelContainer2.zPosition = ZPosStruct.reelContainer
+        GameScene.reelContainer3.zPosition = ZPosStruct.reelContainer
         
-        
+        addChild(GameScene.reelContainer0)
+        addChild(GameScene.reelContainer1)
+        addChild(GameScene.reelContainer2)
+        addChild(GameScene.reelContainer3)
         
         
         let reelSurrounds = SKSpriteNode(imageNamed: "reelSurrounds")
@@ -59,7 +106,7 @@ class GameScene: SKScene {
         addChild(reelSurrounds)
         
         let reelsBackground = SKSpriteNode(imageNamed: "reelsBackground")
-        reelsBackground.position = CGPoint(x: 0, y: 57.5)
+        reelsBackground.position = CGPoint(x: 0, y: 96)
         reelsBackground.zPosition = ZPosStruct.reelsBackground
         addChild(reelsBackground)
         
@@ -126,6 +173,7 @@ class GameScene: SKScene {
         addChild(adBanner)
         
         let spinBtn = SKSpriteNode(imageNamed: "spinButton")
+        spinBtn.name = "spin"
         spinBtn.anchorPoint = CGPoint(x: 1, y: 0)
         spinBtn.position = CGPoint(x: 375, y: -560)
         spinBtn.zPosition = ZPosStruct.spinButton
@@ -164,6 +212,11 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             
+            let node = childNode(withName: "spin")
+            if (node?.frame.contains(location))! {
+                print("spinning")
+                
+            }
         }
     }
     
