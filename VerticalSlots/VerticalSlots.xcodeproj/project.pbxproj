@@ -19,6 +19,7 @@
 		B0E3AAB21E70E76C009FA74C /* SKAction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3AAB11E70E76C009FA74C /* SKAction+Extension.swift */; };
 		B0E3AAB41E70E798009FA74C /* SKNode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3AAB31E70E798009FA74C /* SKNode+Extension.swift */; };
 		B0E3AAB61E70E7EA009FA74C /* ZPosStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3AAB51E70E7EA009FA74C /* ZPosStruct.swift */; };
+		B0E3AAB81E710A1B009FA74C /* SceneType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3AAB71E710A1B009FA74C /* SceneType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		B0E3AAB11E70E76C009FA74C /* SKAction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKAction+Extension.swift"; sourceTree = "<group>"; };
 		B0E3AAB31E70E798009FA74C /* SKNode+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKNode+Extension.swift"; sourceTree = "<group>"; };
 		B0E3AAB51E70E7EA009FA74C /* ZPosStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZPosStruct.swift; sourceTree = "<group>"; };
+		B0E3AAB71E710A1B009FA74C /* SceneType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 		B0E3AAAB1E70E69C009FA74C /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				B0E3AAB71E710A1B009FA74C /* SceneType.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			files = (
 				B0E3AAB21E70E76C009FA74C /* SKAction+Extension.swift in Sources */,
 				B0E3AA951E70DFC6009FA74C /* GameScene.swift in Sources */,
+				B0E3AAB81E710A1B009FA74C /* SceneType.swift in Sources */,
 				B0E3AA971E70DFC6009FA74C /* GameViewController.swift in Sources */,
 				B0E3AA8F1E70DFC6009FA74C /* AppDelegate.swift in Sources */,
 				B0E3AAB61E70E7EA009FA74C /* ZPosStruct.swift in Sources */,
