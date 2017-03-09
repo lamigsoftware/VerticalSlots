@@ -42,7 +42,7 @@ class GameScene: SKScene {
     static var reelContainers:[ReelContainer] = []
     
     static var reelContainersStartingYPos:CGFloat = 840*2 + 84*176
-    static var reelContainersEndingYPos:CGFloat = 84*7 //NOTE: Don't use the first row of the container. Start at the second row for win evaluation. 
+    static var reelContainersEndingYPos:CGFloat = 84*7 //NOTE: Don't use the first row of the container. Start at the second row for win evaluation.
     
     func sprite(reelX:Int, reelY:Int) -> SKSpriteNode {
         let rand = arc4random_uniform(10)
@@ -73,6 +73,23 @@ class GameScene: SKScene {
         return sprites
     }
     
+    func spinAction() {
+        let moveDown = SKAction.moveBy(x: 0, y: -84*189, duration: 2)
+        let wait = SKAction.wait(forDuration: 0.1)
+        var actions:[SKAction] = []
+        
+        for reelContainer in GameScene.reelContainers {
+            let containerSpin = SKAction.run {
+                reelContainer.run(moveDown)
+            }
+            
+            actions.append(containerSpin)
+            actions.append(wait)
+        }
+        
+        run(SKAction.sequence(actions))
+    }
+    
     override func didMove(to view: SKView) {
         
         GameScene.reelContainer0 = ReelContainer(spriteNodes: generateReelSprites())
@@ -100,6 +117,10 @@ class GameScene: SKScene {
         addChild(GameScene.reelContainer2)
         addChild(GameScene.reelContainer3)
         
+        GameScene.reelContainers.append(GameScene.reelContainer0)
+        GameScene.reelContainers.append(GameScene.reelContainer1)
+        GameScene.reelContainers.append(GameScene.reelContainer2)
+        GameScene.reelContainers.append(GameScene.reelContainer3)
         
         let reelSurrounds = SKSpriteNode(imageNamed: "reelSurrounds")
         reelSurrounds.zPosition = ZPosStruct.reelSurrounds
@@ -215,7 +236,7 @@ class GameScene: SKScene {
             let node = childNode(withName: "spin")
             if (node?.frame.contains(location))! {
                 print("spinning")
-                
+                spinAction()
             }
         }
     }

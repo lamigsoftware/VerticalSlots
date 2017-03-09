@@ -23,4 +23,8 @@ class ReelContainer: SKSpriteNode {
             addChild(sprite)
         }
     }
+    
+    func regenerate() {
+        //
+    }
 }
