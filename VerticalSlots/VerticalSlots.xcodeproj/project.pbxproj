@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B05C218E1E71F67F006E0915 /* ReelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C218D1E71F67F006E0915 /* ReelContainer.swift */; };
+		B05C21901E722E6F006E0915 /* ReelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C218F1E722E6F006E0915 /* ReelData.swift */; };
 		B09C02A11E710E1000B85481 /* ElementID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09C02A01E710E1000B85481 /* ElementID.swift */; };
 		B09C02A31E710E2600B85481 /* ElementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09C02A21E710E2600B85481 /* ElementType.swift */; };
 		B09C02A51E710E3900B85481 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09C02A41E710E3900B85481 /* Element.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		B05C218D1E71F67F006E0915 /* ReelContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReelContainer.swift; sourceTree = "<group>"; };
+		B05C218F1E722E6F006E0915 /* ReelData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReelData.swift; sourceTree = "<group>"; };
 		B09C02A01E710E1000B85481 /* ElementID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementID.swift; sourceTree = "<group>"; };
 		B09C02A21E710E2600B85481 /* ElementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementType.swift; sourceTree = "<group>"; };
 		B09C02A41E710E3900B85481 /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
@@ -75,7 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				B05C218D1E71F67F006E0915 /* ReelContainer.swift */,
-				E55DCE601E72255A00A002AE /* ReelData.swift */,
+				B05C218F1E722E6F006E0915 /* ReelData.swift */,
+
 			);
 			name = Pillars;
 			sourceTree = "<group>";
@@ -289,7 +292,8 @@
 				B0E3AAB61E70E7EA009FA74C /* ZPosStruct.swift in Sources */,
 				B0E3AAB01E70E72D009FA74C /* Utils.swift in Sources */,
 				B0E3AAB41E70E798009FA74C /* SKNode+Extension.swift in Sources */,
-				E55DCE611E72255A00A002AE /* ReelData.swift in Sources */,
+				B05C21901E722E6F006E0915 /* ReelData.swift in Sources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

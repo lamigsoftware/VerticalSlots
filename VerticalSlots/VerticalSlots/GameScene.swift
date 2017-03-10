@@ -12,6 +12,7 @@ import GameplayKit
 class GameScene: SKScene {
     
     var firstSpin = true
+    var jpEnabled = false
     
     static let sideMargin:CGFloat = 50
     static let bufferX:CGFloat = 40
@@ -57,16 +58,16 @@ class GameScene: SKScene {
         let rand = arc4random_uniform(10)
         
         switch rand {
-        case 0: return SKSpriteNode(color: UIColor.red, size: CGSize(width: 160, height: 80))
-        case 1: return SKSpriteNode(color: UIColor.green, size: CGSize(width: 160, height: 80))
-        case 2: return SKSpriteNode(color: UIColor.blue, size: CGSize(width: 160, height: 80))
-        case 3: return SKSpriteNode(color: UIColor.yellow, size: CGSize(width: 160, height: 80))
-        case 4: return SKSpriteNode(color: UIColor.purple, size: CGSize(width: 160, height: 80))
-        case 5: return SKSpriteNode(color: UIColor.brown, size: CGSize(width: 160, height: 80))
-        case 6: return SKSpriteNode(color: UIColor.cyan, size: CGSize(width: 160, height: 80))
-        case 7: return SKSpriteNode(color: UIColor.white, size: CGSize(width: 160, height: 80))
-        case 8: return SKSpriteNode(color: UIColor.black, size: CGSize(width: 160, height: 80))
-        case 9: return SKSpriteNode(color: UIColor.darkGray, size: CGSize(width: 160, height: 80))
+        case 0: return SKSpriteNode(imageNamed:"10 card")
+        case 1: return SKSpriteNode(imageNamed:"Ace")
+        case 2: return SKSpriteNode(imageNamed:"Bare")
+        case 3: return SKSpriteNode(imageNamed:"Dog")
+        case 4: return SKSpriteNode(imageNamed:"Jack")
+        case 5: return SKSpriteNode(imageNamed:"King")
+        case 6: return SKSpriteNode(imageNamed:"Lion")
+        case 7: return SKSpriteNode(imageNamed:"Panda")
+        case 8: return SKSpriteNode(imageNamed:"Puss")
+        case 9: return SKSpriteNode(imageNamed:"Queen")
         default: return SKSpriteNode(color: .clear, size: CGSize(width: 1, height: 1))
         }
     }
@@ -188,6 +189,7 @@ class GameScene: SKScene {
         addChild(buyBtn)
         
         let crown = SKSpriteNode(imageNamed: "crown")
+        crown.name = "crown"
         crown.anchorPoint = CGPoint(x: 0, y: 1)
         crown.position = CGPoint(x: -325, y: -340)
         crown.zPosition = ZPosStruct.levelUpIcon
@@ -335,10 +337,58 @@ class GameScene: SKScene {
                     GameScene.reelContainers.append(GameScene.reelContainer3)
                 }
                 
-                let sequence = SKAction.sequence([group, createNext])
-                run(sequence)
+                let sequence:SKAction?
+                if jpEnabled {
+                    
+                    let jpImage = SKSpriteNode(imageNamed: "trumpFunny")
+                    jpImage.zPosition = 2000
+                    jpImage.position = CGPoint(x: 800, y: 0)
+                    addChild(jpImage)
+                    let jpAnimation = SKAction.move(to: CGPoint.zero, duration: 1)
+                    
+                    let show = SKAction.run {
+                        jpImage.run(jpAnimation)
+                    }
+                    
+                    let wait = SKAction.wait(forDuration: 1)
+                    
+                    
+                    
+                    let dropMoney = SKAction.run {
+                        let money = SKSpriteNode(imageNamed: "Trump Dollar")
+                        let randX = arc4random_uniform(750)
+//                        money.position = CGPoint(x: Int(randX) - 375, y: 800)
+                        money.position = CGPoint(x: 175, y: 100)
+                        money.zPosition = 3000
+                        self.addChild(money)
+                        
+                        let randTime = arc4random_uniform(30) / 10
+//                        let fall = SKAction.moveBy(x: 0, y: -1600, duration: TimeInterval(randTime))
+                        let fall = SKAction.moveBy(x: 0, y: -1600, duration: 4)
+                        money.run(fall)
+                    }
+                    
+                    let forever = SKAction.repeatForever(dropMoney)
+                    
+                    
+                    sequence = SKAction.sequence([group, createNext, show, wait, forever])
+                } else {
+                    sequence = SKAction.sequence([group, createNext])
+                }
+
+                run(sequence!)
+            }
+            
+            
+            let node2 = childNode(withName: "crown")
+            if (node2?.frame.contains(location))! {
+                jpEnabled = true
             }
         }
+    }
+    
+    func showJackpot() {
+        //
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
