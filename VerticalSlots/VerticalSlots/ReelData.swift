@@ -5,6 +5,7 @@
 //  Created by Tushar Das on 10/03/2017.
 //  Copyright © 2017 Lamig Software. All rights reserved.
 //
+
 import Foundation
 
 struct ReelData {
@@ -24,3 +25,4 @@ struct ReelData {
 //    
 //    array rail 4 ={"Cow", "Cow", "Cow", "Panda", "Dog", "Panda", "Cow", "Cow", "Cat", "Cow", "Cow", "Dog", "Dog", "Panda", "Panda", "Panda", "Cow", "Cow", "Cat", "Dog", "Dog", "Cat", "Cat", "Dog", "Cat", "Cat", "Dog", "Cat", "Cow", "Dog", "Cow", "Cow", "Cow", "Dog", "Cat", "Cat", "Panda", "Cow", "Dog", "Cat", "Cat", "Cow", "Cow", "Cat", "Panda", "Cat", "Cat", "Dog", "Dog", "Dog", "Dog", "Cow", "Cow", "Cat", "Cow", "Dog", "Cat", "Dog", "Cow", "Cat", "Panda", "Cow", "Cow", "Dog", "Dog", "Dog", "Panda", "Panda", "Dog", "Cat", "Dog", "Cow", "Panda", "Cow", "Panda", "Cat", "Dog", "Panda", "Dog", "Cat", "Cow", "Panda", "Cat", "Dog", "Panda", "Cat", "Cow", "Dog", "Cow", "Cat", "Cat", "Panda", "Cat", "Dog", "Panda", "Cow", "Cat", "Cat", "Cow", "Dog", "Dog", "Cow", "Panda", "Cow", "Cat", "Cow", "Panda", "Cat", "Panda", "Dog", "Cow", "Dog", "Cow", "Cow", "Dog", "Cat", "Cat", "Dog", "Cat", "Panda", "Cow", "Panda", "Cat", "Cow", "Panda", "Dog", "Panda", "Dog", "Cat", "Panda", "Dog", "Panda", "Dog", "Dog", "Cat", "Panda", "Dog", "Cow", "Cat", "Cow", "Cat", "Dog", "Dog", "Cow", "Cow", "Panda", "Panda", "Dog", "Panda", "Panda", "Cat", "Cat", "Dog", "Dog", "Panda", "Cat", "Cat", "Dog", "Cow", "Cat", "Cow", "Panda", "Panda", "Dog", "Cow", "Cat", "Dog", "Dog", "Cat", "Panda", "Dog", "Cow", "Cat", "Dog", "Cow", "Panda", "Cat", "Cat", "Cow", "Panda", "Dog", "Cat", "Cow", "Dog", "Dog", "Cow", "Dog", "Cow", "Cat", "Cat", "Cow", "Cow", "Dog", "Cat", "Cow", "Dog", "Panda", "Panda", "Dog", "Cat"}
 }
+
