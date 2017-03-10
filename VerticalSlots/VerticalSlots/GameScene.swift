@@ -11,6 +11,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    var firstSpin = true
+    
     static let sideMargin:CGFloat = 50
     static let bufferX:CGFloat = 40
     static let minX:CGFloat = -375
@@ -41,7 +43,14 @@ class GameScene: SKScene {
     static var reelContainer3 = ReelContainer(spriteNodes: [])
     static var reelContainers:[ReelContainer] = []
     
-    static var reelContainersStartingYPos:CGFloat = 840*2 + 84*176
+    static var nextContainer0 = ReelContainer(spriteNodes: [])
+    static var nextContainer1 = ReelContainer(spriteNodes: [])
+    static var nextContainer2 = ReelContainer(spriteNodes: [])
+    static var nextContainer3 = ReelContainer(spriteNodes: [])
+    static var nextContainers:[ReelContainer] = []
+    
+    static var reelContainersStartingYPos_Old:CGFloat = 840*2 + 84*176
+    static var reelContainersStartingYPos:CGFloat = 84*6
     static var reelContainersEndingYPos:CGFloat = 84*7 //NOTE: Don't use the first row of the container. Start at the second row for win evaluation.
     
     func sprite(reelX:Int, reelY:Int) -> SKSpriteNode {
@@ -73,7 +82,7 @@ class GameScene: SKScene {
         return sprites
     }
     
-    func spinAction() {
+    func firstFullSpinAction() {
         let moveDown = SKAction.moveBy(x: 0, y: -84*189, duration: 2)
         let wait = SKAction.wait(forDuration: 0.1)
         var actions:[SKAction] = []
@@ -88,6 +97,38 @@ class GameScene: SKScene {
         }
         
         run(SKAction.sequence(actions))
+    }
+    
+    func createNextContainers() {
+        GameScene.nextContainer0 = ReelContainer(spriteNodes: generateReelSprites())
+        GameScene.nextContainer1 = ReelContainer(spriteNodes: generateReelSprites())
+        GameScene.nextContainer2 = ReelContainer(spriteNodes: generateReelSprites())
+        GameScene.nextContainer3 = ReelContainer(spriteNodes: generateReelSprites())
+        
+        GameScene.nextContainer0.anchorPoint = CGPoint(x: 0.5, y: 1)
+        GameScene.nextContainer1.anchorPoint = CGPoint(x: 0.5, y: 1)
+        GameScene.nextContainer2.anchorPoint = CGPoint(x: 0.5, y: 1)
+        GameScene.nextContainer3.anchorPoint = CGPoint(x: 0.5, y: 1)
+        
+        GameScene.nextContainer0.position = CGPoint(x: GameScene.reel0X, y: GameScene.reelContainersStartingYPos + 84*200)
+        GameScene.nextContainer1.position = CGPoint(x: GameScene.reel1X, y: GameScene.reelContainersStartingYPos + 84*200)
+        GameScene.nextContainer2.position = CGPoint(x: GameScene.reel2X, y: GameScene.reelContainersStartingYPos + 84*200)
+        GameScene.nextContainer3.position = CGPoint(x: GameScene.reel3X, y: GameScene.reelContainersStartingYPos + 84*200)
+        
+        GameScene.nextContainer0.zPosition = ZPosStruct.reelContainer
+        GameScene.nextContainer1.zPosition = ZPosStruct.reelContainer
+        GameScene.nextContainer2.zPosition = ZPosStruct.reelContainer
+        GameScene.nextContainer3.zPosition = ZPosStruct.reelContainer
+        
+        addChild(GameScene.nextContainer0)
+        addChild(GameScene.nextContainer1)
+        addChild(GameScene.nextContainer2)
+        addChild(GameScene.nextContainer3)
+        
+        GameScene.nextContainers.append(GameScene.nextContainer0)
+        GameScene.nextContainers.append(GameScene.nextContainer1)
+        GameScene.nextContainers.append(GameScene.nextContainer2)
+        GameScene.nextContainers.append(GameScene.nextContainer3)
     }
     
     override func didMove(to view: SKView) {
@@ -121,6 +162,9 @@ class GameScene: SKScene {
         GameScene.reelContainers.append(GameScene.reelContainer1)
         GameScene.reelContainers.append(GameScene.reelContainer2)
         GameScene.reelContainers.append(GameScene.reelContainer3)
+        
+        createNextContainers()
+        
         
         let reelSurrounds = SKSpriteNode(imageNamed: "reelSurrounds")
         reelSurrounds.zPosition = ZPosStruct.reelSurrounds
@@ -228,6 +272,28 @@ class GameScene: SKScene {
 
     }
     
+    func partialSpinAction() -> SKAction {
+        let moveDown = SKAction.moveBy(x: 0, y: -84*11, duration: 0.1164021163998)
+        return moveDown
+    }
+    
+    func secondaryFullSpinAction() -> SKAction {
+        let moveDown = SKAction.moveBy(x: 0, y: -84*189 - 84*10, duration: 2)
+        let wait = SKAction.wait(forDuration: 0.1)
+        var actions:[SKAction] = []
+        
+        for reelContainer in GameScene.reelContainers {
+            let containerSpin = SKAction.run {
+                reelContainer.run(moveDown)
+            }
+            
+            actions.append(containerSpin)
+            actions.append(wait)
+        }
+        
+        let sequence = SKAction.sequence(actions)
+        return sequence
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -235,8 +301,78 @@ class GameScene: SKScene {
             
             let node = childNode(withName: "spin")
             if (node?.frame.contains(location))! {
-                print("spinning")
-                spinAction()
+                
+                
+                let partial = SKAction.run {
+                    GameScene.reelContainer0.run(self.partialSpinAction())
+                    GameScene.reelContainer1.run(self.partialSpinAction())
+                    GameScene.reelContainer2.run(self.partialSpinAction())
+                    GameScene.reelContainer3.run(self.partialSpinAction())
+                }
+                
+                let secondary = SKAction.run {
+                    GameScene.nextContainer0.run(self.secondaryFullSpinAction())
+                    GameScene.nextContainer1.run(self.secondaryFullSpinAction())
+                    GameScene.nextContainer2.run(self.secondaryFullSpinAction())
+                    GameScene.nextContainer3.run(self.secondaryFullSpinAction())
+                }
+                
+                let group = SKAction.group([partial, secondary])
+                
+                let createNext = SKAction.run {
+                    GameScene.nextContainers.removeAll()
+                    self.createNextContainers()
+                    
+                    GameScene.reelContainers.removeAll()
+                    
+                    GameScene.reelContainer0 = GameScene.nextContainer0
+                    GameScene.reelContainer1 = GameScene.nextContainer1
+                    GameScene.reelContainer2 = GameScene.nextContainer2
+                    GameScene.reelContainer3 = GameScene.nextContainer3
+                    
+                    GameScene.reelContainers.append(GameScene.reelContainer0)
+                    GameScene.reelContainers.append(GameScene.reelContainer1)
+                    GameScene.reelContainers.append(GameScene.reelContainer2)
+                    GameScene.reelContainers.append(GameScene.reelContainer3)
+                }
+                
+                let sequence = SKAction.sequence([group, createNext])
+                run(sequence)
+                
+                
+//                if !firstSpin {
+//                    
+//                    let partial = SKAction.run {
+//                        GameScene.reelContainer0.run(self.partialSpinAction())
+//                        GameScene.reelContainer0.run(self.partialSpinAction())
+//                        GameScene.reelContainer0.run(self.partialSpinAction())
+//                        GameScene.reelContainer0.run(self.partialSpinAction())
+//                    }
+//                    
+//                    let secondary = SKAction.run {
+//                        GameScene.nextContainer0.run(self.secondaryFullSpinAction())
+//                        GameScene.nextContainer0.run(self.secondaryFullSpinAction())
+//                        GameScene.nextContainer0.run(self.secondaryFullSpinAction())
+//                        GameScene.nextContainer0.run(self.secondaryFullSpinAction())
+//                    }
+//                    
+//                    let group = SKAction.group([partial, secondary])
+//                    
+//                    let createNext = SKAction.run {
+//                        self.createNextContainers()
+//                    }
+//                    
+//                    let sequence = SKAction.sequence([group, createNext])
+//                    run(sequence)
+//                    
+//                } else {
+//                    firstSpin = false
+//                    
+//                    firstFullSpinAction()//part of sequence
+//                    createNextContainers()//part of sequence
+//                }
+                
+                
             }
         }
     }
