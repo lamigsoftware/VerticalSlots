@@ -274,15 +274,29 @@ class GameScene: SKScene {
     
     func partialSpinAction() -> SKAction {
         let moveDown = SKAction.moveBy(x: 0, y: -84*11, duration: 0.1164021163998)
-        return moveDown
-    }
-    
-    func secondaryFullSpinAction() -> SKAction {
-        let moveDown = SKAction.moveBy(x: 0, y: -84*189 - 84*10, duration: 2)
         let wait = SKAction.wait(forDuration: 0.1)
         var actions:[SKAction] = []
         
         for reelContainer in GameScene.reelContainers {
+            let containerSpin = SKAction.run {
+                reelContainer.run(moveDown)
+            }
+            
+            actions.append(containerSpin)
+            actions.append(wait)
+        }
+        
+        let sequence = SKAction.sequence(actions)
+        return sequence
+    }
+    
+    func secondaryFullSpinAction() -> SKAction {
+//        let moveDown = SKAction.moveBy(x: 0, y: -84*189 - 84*10, duration: 2)
+        let moveDown = SKAction.moveBy(x: 0, y: -84*189 + 84*10, duration: 2)
+        let wait = SKAction.wait(forDuration: 0.1)
+        var actions:[SKAction] = []
+        
+        for reelContainer in GameScene.nextContainers {
             let containerSpin = SKAction.run {
                 reelContainer.run(moveDown)
             }
@@ -301,23 +315,8 @@ class GameScene: SKScene {
             
             let node = childNode(withName: "spin")
             if (node?.frame.contains(location))! {
-                
-                
-                let partial = SKAction.run {
-                    GameScene.reelContainer0.run(self.partialSpinAction())
-                    GameScene.reelContainer1.run(self.partialSpinAction())
-                    GameScene.reelContainer2.run(self.partialSpinAction())
-                    GameScene.reelContainer3.run(self.partialSpinAction())
-                }
-                
-                let secondary = SKAction.run {
-                    GameScene.nextContainer0.run(self.secondaryFullSpinAction())
-                    GameScene.nextContainer1.run(self.secondaryFullSpinAction())
-                    GameScene.nextContainer2.run(self.secondaryFullSpinAction())
-                    GameScene.nextContainer3.run(self.secondaryFullSpinAction())
-                }
-                
-                let group = SKAction.group([partial, secondary])
+
+                let group = SKAction.group([partialSpinAction(), secondaryFullSpinAction()])
                 
                 let createNext = SKAction.run {
                     GameScene.nextContainers.removeAll()
@@ -338,41 +337,6 @@ class GameScene: SKScene {
                 
                 let sequence = SKAction.sequence([group, createNext])
                 run(sequence)
-                
-                
-//                if !firstSpin {
-//                    
-//                    let partial = SKAction.run {
-//                        GameScene.reelContainer0.run(self.partialSpinAction())
-//                        GameScene.reelContainer0.run(self.partialSpinAction())
-//                        GameScene.reelContainer0.run(self.partialSpinAction())
-//                        GameScene.reelContainer0.run(self.partialSpinAction())
-//                    }
-//                    
-//                    let secondary = SKAction.run {
-//                        GameScene.nextContainer0.run(self.secondaryFullSpinAction())
-//                        GameScene.nextContainer0.run(self.secondaryFullSpinAction())
-//                        GameScene.nextContainer0.run(self.secondaryFullSpinAction())
-//                        GameScene.nextContainer0.run(self.secondaryFullSpinAction())
-//                    }
-//                    
-//                    let group = SKAction.group([partial, secondary])
-//                    
-//                    let createNext = SKAction.run {
-//                        self.createNextContainers()
-//                    }
-//                    
-//                    let sequence = SKAction.sequence([group, createNext])
-//                    run(sequence)
-//                    
-//                } else {
-//                    firstSpin = false
-//                    
-//                    firstFullSpinAction()//part of sequence
-//                    createNextContainers()//part of sequence
-//                }
-                
-                
             }
         }
     }
